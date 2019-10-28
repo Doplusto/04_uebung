@@ -110,3 +110,29 @@ java Proc "dir"
 ## e)   
 
 Ändern Sie die Ausgabe so um, dass diese in eine Datei 'dat.txt' geschrieben wird und diese kontinuierlich weitergeschrieben wird.
+
+## Aufgabe 2: Scheduling
+
+Folgende hypothetische Aufgabe:
+- 5 Aufträge A–E treffen im System fast gleichzeitig ein
+- Geschätzte Ausführungszeiten in Millisekunden: A=10, B=6, C=4, 
+D=2, E=8
+- Prioritäten: A=3, B=5, C=2, D=1, E=4 (5 ist höchste)
+- Der Rechner verfügt über eine CPU (einen Rechnerkern)
+- Gesucht: Durchschnittliche Verweilzeit im System  (Gesamtzeit/Anzahl Aufträge)
+
+Es gilt also:
+| Job  | A  | B | C | D | E |
+|------|----|---|---|---|---| 
+| Zeit | 10 | 6 | 4 | 2 | 8 |
+| Prio |  3 | 5 | 2 | 1 | 4 |
+
+Berechnen Sie für
+
+1. Priority Scheduling (nicht verdrängend)
+1. FCFS (Reihenfolge Annahme: A, B, D, C, E) (nicht verdrängend)
+1. Shortest Job First (nicht verdrängend)
+
+**Prozesswechselzeit wird vernachlässigt!** 
+
+**Aufträge werden nacheinander ausgeführt!**
