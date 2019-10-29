@@ -107,6 +107,65 @@ java Proc "dir"
 
 > Note: Hierzu können Sie die komplette `run()`-Methode umschreiben oder einfach eine `map`-Methode in den Stream einfügen, mit einem entsprechenden Lambda-Ausdruck.
 
+**Loesung**:
+
+```java
+import java.io.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+
+public class Proc {
+
+    private static class StreamGobbler implements Runnable {
+        private InputStream inputStream;
+        private Consumer<String> consumer;
+
+        public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
+            this.inputStream = inputStream;
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void run() {
+            new BufferedReader(new InputStreamReader(inputStream)).
+                    lines().
+                    map(s -> System.currentTimeMillis() + ": " + s).
+                    forEach(consumer);
+        }
+    }
+
+    public static void main(String[] args)  {
+        // bestimmt, um welches OS es sich handelt
+        boolean isWindows = System.getProperty("os.name")
+                .toLowerCase().startsWith("windows");
+
+        ProcessBuilder builder = new ProcessBuilder();
+        if (isWindows) {
+            builder.command("cmd.exe", "/c", args[0]);
+        } else {
+            builder.command("sh", "-c", args[0]);
+        }
+        // Setzen spezifischer Einstellungen
+        builder.directory(new File(System.getProperty("user.home")));
+
+        try {
+            Process process = builder.start();
+            StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+            Executors.newSingleThreadExecutor().submit(streamGobbler);
+            process.waitFor(1000, TimeUnit.MILLISECONDS);
+        }
+        catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        catch (InterruptedException iex) {
+            System.out.println(iex.getMessage());
+        }
+
+    }
+}
+```
+
 ## e)   
 
 Ändern Sie die Ausgabe so um, dass diese in eine Datei 'dat.txt' geschrieben wird und diese kontinuierlich weitergeschrieben wird.
@@ -132,8 +191,49 @@ Es gilt also:
 Berechnen Sie für
 
 1. Priority Scheduling (nicht verdrängend)
+
+**Loesung:**
+
+Es gilt also:
+| Job  | B  | E | A  | C | D |
+|------|----|---|----|---|---| 
+| Zeit im System | 6  | 14| 24 | 28 | 30 |
+
+Summe: 102
+
+Mittlere Verweilzeit = 102 / 5 = 20.4 ms
+
+![](./img/2_a_1.png)
+
 1. FCFS (Reihenfolge Annahme: A, B, D, C, E) (nicht verdrängend)
+
+**Loesung:**
+
+Es gilt also:
+| Job  | A  | B | C  | D | E |
+|------|----|---|----|---|---| 
+| Zeit im System | 10  | 16| 18 | 22 | 30 |
+
+Summe: 96
+
+Mittlere Verweilzeit = 96 / 5 = 19.2 ms
+
+![](./img/2_a_2.png)
+
 1. Shortest Job First (nicht verdrängend)
+
+**Loesung:**
+
+Es gilt also:
+| Job  | D  | C | B  | E | A |
+|------|----|---|----|---|---| 
+| Zeit im System | 2  | 6| 12 | 20 | 30 |
+
+Summe: 70
+
+Mittlere Verweilzeit = 70 / 5 = 14.0 ms
+
+![](./img/2_a_3.png)
 
 **Prozesswechselzeit wird vernachlässigt!** 
 
