@@ -1,0 +1,18 @@
+@startuml
+
+class Process {
+  id
+  prio
+  duration
+}
+class Scheduler {
+
+  addProcess(Process p);
+  calculatePrioScheduling(): double;
+  calculateFCFS(): double;
+  calculateSJF(): double;
+}
+
+Scheduler *-down- Process
+
+@enduml

@@ -127,6 +127,8 @@ Es gilt also:
 | Zeit | 10 | 6 | 4 | 2 | 8 |
 | Prio |  3 | 5 | 2 | 1 | 4 |
 
+### a)
+
 Berechnen Sie für
 
 1. Priority Scheduling (nicht verdrängend)
@@ -136,3 +138,14 @@ Berechnen Sie für
 **Prozesswechselzeit wird vernachlässigt!** 
 
 **Aufträge werden nacheinander ausgeführt!**
+
+### b)
+
+Gegeben ist folgendes UML Diagramm:
+
+![UML](./img/scheduler.svg)
+
+1. Implementieren Sie die Klassen `Process` und `Schedulder`. Ein Scheduler kann n Prozesse verwalten. Wählen Sie eine entsprechende Datenstruktur im Scheduler.
+2. Fügen Sie einen Testcase hinzu, der dem Scheduler die Prozesse (A-E) aus Teil a hinzufügt.
+3. Die Methoden `calculatePrioScheduling`, `calculateFCFS` und `calcualteSJF` sollen die durchschnittliche Verweilzeit im System berechnen. Idealerweise bestätigen Sie die Ergebnisse in Teil a!
+    - Ist es möglich eine private Methode zur Berechnung zu erstellen, die bei geeigneter Vorsortierung für alle 3 Fälle die Berechnung durchführt?
