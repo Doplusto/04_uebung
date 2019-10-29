@@ -1,4 +1,4 @@
-_Übungsaufgabe zur Veranstaltung [IT Systeme](https://hsro-wif-oop.github.io) im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rosenheim.de/technik/informatik-mathematik/wirtschaftsinformatik-bachelor/) an der [Hochschule Rosenheim](http://www.th-rosenheim.de)._
+_Übungsaufgabe zur Veranstaltung [IT Systeme](https://hsro-wif-it.github.io) im [Bachelorstudiengang Wirtschaftsinformatik](https://www.th-rosenheim.de/technik/informatik-mathematik/wirtschaftsinformatik-bachelor/) an der [Hochschule Rosenheim](http://www.th-rosenheim.de)._
 
 
 # 04 - Betriebssysteme
@@ -122,10 +122,12 @@ D=2, E=8
 - Gesucht: Durchschnittliche Verweilzeit im System  (Gesamtzeit/Anzahl Aufträge)
 
 Es gilt also:
+
 | Job  | A  | B | C | D | E |
 |------|----|---|---|---|---| 
 | Zeit | 10 | 6 | 4 | 2 | 8 |
 | Prio |  3 | 5 | 2 | 1 | 4 |
+
 
 ### a)
 
