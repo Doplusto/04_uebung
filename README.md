@@ -212,7 +212,7 @@ Mittlere Verweilzeit = 102 / 5 = 20.4 ms
 Es gilt also:
 | Job  | A  | B | C  | D | E |
 |------|----|---|----|---|---| 
-| Zeit im System | 10  | 16| 18 | 22 | 30 |
+| Zeit im System | 10  | 16| 20 | 22 | 30 |
 
 Summe: 96
 
@@ -249,3 +249,79 @@ Gegeben ist folgendes UML Diagramm:
 2. Fügen Sie einen Testcase hinzu, der dem Scheduler die Prozesse (A-E) aus Teil a hinzufügt.
 3. Die Methoden `calculatePrioScheduling`, `calculateFCFS` und `calcualteSJF` sollen die durchschnittliche Verweilzeit im System berechnen. Idealerweise bestätigen Sie die Ergebnisse in Teil a!
     - Ist es möglich eine private Methode zur Berechnung zu erstellen, die bei geeigneter Vorsortierung für alle 3 Fälle die Berechnung durchführt?
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+public class Scheduler {
+
+    static class Process {
+
+        private String id;
+        private int prio;
+        private int duration;
+
+        Process(String Id, int Prio, int Duration) {
+            this.id       = Id;
+            this.prio     = Prio;
+            this.duration = Duration;
+        }
+
+    }
+
+    private ArrayList<Process> processes;
+
+    Scheduler() {
+        this.processes = new ArrayList<Process>();
+    }
+
+    public void addProcess(Process p) {
+        this.processes.add(p);
+    }
+
+    public double calculatePrioScheduling() {
+        List<Process> l = new ArrayList<>(this.processes);
+        l.sort((a,b) -> Integer.compare(b.prio, a.prio));
+        return calculateAvgTime(l);
+    }
+
+    public double calculateFCFS() {
+        List<Process> l = new ArrayList<>(this.processes);
+        return calculateAvgTime(l);
+    }
+
+    public double calculateSJF() {
+        List<Process> l = new ArrayList<>(this.processes);
+        l.sort(Comparator.comparingInt(a -> a.duration));
+        return calculateAvgTime(l);
+    }
+
+    private double calculateAvgTime(List<Process> l) {
+        double result = 0;
+        int[] time = new int[l.size()];
+        int index = 0;
+        int prev = 0;
+        for (Process p: l) {
+            time[index++] = p.duration + prev;
+            prev = time[index-1];
+        }
+        return Arrays.stream(time).sum()/l.size();
+    }
+
+    public static void main(String[] args) {
+        Scheduler s = new Scheduler();
+        s.addProcess(new Process("A", 3, 10));
+        s.addProcess(new Process("B", 5, 6));
+        s.addProcess(new Process("C", 2, 4));
+        s.addProcess(new Process("D", 1, 2));
+        s.addProcess(new Process("E", 4, 8));
+
+        System.out.println(s.calculatePrioScheduling());
+        System.out.println(s.calculateFCFS());
+        System.out.println(s.calculateSJF());
+    }
+}
+```
