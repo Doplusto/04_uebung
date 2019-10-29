@@ -161,7 +161,8 @@ public class Proc {
         catch (InterruptedException iex) {
             System.out.println(iex.getMessage());
         }
-
+        System.in.read();
+        System.exit(0);
     }
 }
 ```
@@ -181,10 +182,12 @@ D=2, E=8
 - Gesucht: Durchschnittliche Verweilzeit im System  (Gesamtzeit/Anzahl Aufträge)
 
 Es gilt also:
+
 | Job  | A  | B | C | D | E |
 |------|----|---|---|---|---| 
 | Zeit | 10 | 6 | 4 | 2 | 8 |
 | Prio |  3 | 5 | 2 | 1 | 4 |
+
 
 ### a)
 
@@ -195,9 +198,11 @@ Berechnen Sie für
 **Loesung:**
 
 Es gilt also:
+
 | Job  | B  | E | A  | C | D |
 |------|----|---|----|---|---| 
 | Zeit im System | 6  | 14| 24 | 28 | 30 |
+
 
 Summe: 102
 
@@ -210,9 +215,11 @@ Mittlere Verweilzeit = 102 / 5 = 20.4 ms
 **Loesung:**
 
 Es gilt also:
+
 | Job  | A  | B | C  | D | E |
 |------|----|---|----|---|---| 
 | Zeit im System | 10  | 16| 20 | 22 | 30 |
+
 
 Summe: 96
 
